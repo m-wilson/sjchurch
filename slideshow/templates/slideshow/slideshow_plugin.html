@@ -1,0 +1,91 @@
+{% load sekizai_tags %}
+{% addtoblock "css" %}<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}css/style.css" />{% endaddtoblock %}
+{% addtoblock "js" %}<script src="{{STATIC_URL}}js/processing.js"></script>{% endaddtoblock %}
+
+{% addtoblock "js" %}
+	<script type="application/processing" data-processing-target="processing_{{ slideshow_name }}">
+	PImage[] img= new PImage[{{ no_of_images }}];
+	caption= new Array();
+	
+	int width = {{ canvas_width }};
+	int height= {{ canvas_height }};
+	int image_0, image_1;
+	int xOffset= 0;
+	int speed= 4;
+	int startTime;
+	
+	boolean bPauseMode;
+	int PAUSE_DURATION= {{ pause_duration }}; // i.e. 1000ms = 1sec
+	
+	void setup() {
+	  size(width, height);
+	  noStroke();
+	  {% for image_no, image_url in image_urls.items %}
+		img[{{ image_no }}]= loadImage('{{ image_url }}');
+	  {% endfor %}
+	  
+	  {% for image_no, image_caption in image_captions.items %}
+		caption[{{ image_no }}]= "{{ image_caption }}";
+	  {% endfor %}
+
+	  bPauseMode= false;
+	  image0= 0;
+	  image1= 1;
+	  f = createFont("Georgia", 24);
+  	  textFont(f);
+	  grey= color(50,50,50, 150);
+	  white= color(255,255,255, 255);
+	  black= color(0,0,0, 255);
+	}
+	
+	void draw() {  
+	  if(bPauseMode) {  
+	    image(img[image0], 0, 0, width, height);
+	    noStroke();
+	    fill(grey);
+		rect(0, 0.8*height, width, height);
+		fill(white);
+	    text(caption[image0], 20, 0.93*height);
+
+	    if(millis()- startTime > PAUSE_DURATION) {
+	      bPauseMode= false;
+	      image1= image0;
+	      image0= (image0+1) % {{ no_of_images }};
+
+
+	    }
+	  }
+	  
+	  else {
+		background(black);
+	    image(img[image0], xOffset-width, 0, width, height);
+	    image(img[image1], xOffset, 0, width, height);
+	    noStroke();
+	    fill(grey);
+		rect(0, 0.8*height, width, height);
+		fill(white);
+	    text(caption[image0], width+20-xOffset, 0.93*height);
+	    xOffset= (xOffset+speed) % width ;
+	    if(xOffset== 0) {
+	      bPauseMode= true;
+	      startTime = millis();
+	
+	    }
+	  }  
+	}
+	</script>
+{% endaddtoblock %}
+
+<div>
+		<canvas id="processing_{{ slideshow_name }}">
+
+			<p>Your browser does not support the canvas tag.</p>
+		</canvas>
+		<noscript>
+			<p>JavaScript is required to view this plugin.</p>
+		</noscript>
+</div>
+
+
+
+

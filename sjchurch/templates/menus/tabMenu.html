@@ -1,0 +1,25 @@
+{% load menu_tags %}
+{% load sekizai_tags %}
+
+{# Enable tabbable tabs via javascript #}
+
+{% addtoblock "js" %}
+	<script>
+	{% for child in children %}
+		$('#{{ child.get_menu_title }} a').click(function (e) {
+		  e.preventDefault();
+		  $(this).tab('show');
+		})
+	{% endfor %}
+	</script>
+{% endaddtoblock %}
+
+{# tab menu #}
+
+<ul class="nav nav-tabs">
+{% for child in children %}
+{% if child.selected %}
+  <li><a href="#child.get_menu_title" data-toggle="tab">{% show_menu_below_id child.title|slugify %}</a></li>
+{% endif %}
+{% endfor %}
+</ul>

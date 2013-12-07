@@ -1,0 +1,23 @@
+{% extends "home.html" %}
+{% load cms_tags %}
+{% load menu_tags %}
+
+{% block middle_panel_content %}
+
+	<div class= "container">
+	    <div class= "row">
+			<div class= "span10">
+				<h3> News Detail View </h3>
+				<p>Slug: {{slug}}</p>
+				<p>Year: {{ year }}</p>
+				<p>Month: {{ month }}</p>
+				<p>Day: {{ day }}</p>
+			</div>
+	    </div>
+	</div>
+
+	
+{% endblock %}
+
+
+

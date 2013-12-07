@@ -1,0 +1,5 @@
+sjvenv
+*.pyc
+staticfiles*.class
+*.pyc
+*.pyo

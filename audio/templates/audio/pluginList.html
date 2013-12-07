@@ -1,0 +1,39 @@
+{% load sekizai_tags %}
+{% addtoblock "css" %}<link rel="stylesheet" type="text/css" href="{{STATIC_URL}}cmsplugin_filer_audio/style.css" />{% endaddtoblock %}
+{% addtoblock "js" %}<script src="{{STATIC_URL}}cmsplugin_filer_audio/flowplayer/flowplayer-3.2.10.min.js"></script>{% endaddtoblock %}
+
+<h2> Sermons </h2>
+{% if audio_list %}
+    {% for instance in audio_list %}
+	{% addtoblock "js" %}
+	<script type="text/javascript">
+	    $(document).ready(function(){
+	        flowplayer("cmsplugin_filer_audio-player{{instance.pk}}",
+	                   "{{STATIC_URL}}cmsplugin_filer_audio/flowplayer/flowplayer-3.2.11.swf", {
+	            // fullscreen button not needed here
+	            plugins: {
+	                controls: {
+	                    fullscreen: false,
+	                    height: 30,
+	                    autoHide: false
+	                }
+	            },
+	
+	            clip: {
+	                autoPlay: {{instance.autostart|yesno:"true,false"}},
+	            }
+	
+	        });
+	    });
+	</script>
+	{% endaddtoblock %}
+	<div class="audio-player">
+	    <p class= "span3" >{{instance.title}} {{instance.date}}</p>
+	    <p class= "span4"> <a href="{{instance.audiofile.url}}" id="cmsplugin_filer_audio-player{{instance.pk}}"</a>
+	    <a style= "{align:right;}" href= "{{instance.audiofile.url}}">download</a></p>  
+	</div>
+    {% endfor %}
+{% else %}
+    <p>Sorry, there are no audio files at the moment.</p>
+{% endif %}
+

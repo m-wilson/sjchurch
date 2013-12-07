@@ -1,0 +1,40 @@
+
+{% extends "base.html" %}
+{% load cms_tags %}
+{% load menu_tags %}
+
+{% block base_content %}
+
+	<div class= "container">
+	    <div class= "row">
+			<div class= "span12">
+				<div class= "welcome">Welcome to St Jude's Church, Wolverhampton</div>	   	
+				<!-- Breadcrumb menu -->	
+				{# show_breadcrumb "menus/breadcrumb.html" #}
+			</div>
+	    </div>
+		
+	    <div class= "row">
+			<div class= "span3">	
+				{% placeholder 'left panel' %}
+				{% block left_panel_content %}
+					<!-- Accordion menu -->
+					{% show_menu 0 100 0 100 "menus/accordionMenu.html" %}
+				{% endblock %}
+			</div>
+	    	
+			<div class= "span5">
+				{% placeholder 'middle panel' %}
+				{% block middle_panel_content %}
+				{% endblock %}
+			</div>
+	         
+			<div class= "span4">	
+				{% placeholder 'right panel' %}
+				{% block right_panel_content %}
+				{% endblock %}
+			</div>
+	    </div>
+	</div>
+	
+{% endblock %}

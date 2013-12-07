@@ -1,0 +1,28 @@
+{% load sekizai_tags %}
+
+<h2> Upcoming Events </h2>
+
+{% for date, event, weekday, endtime in upcoming_events %}
+<div class= "eventPanel">
+	<h2> {{ event.title }}</h2>
+	<p class= "eventDate">{{weekday}} {{ date }} - {{endtime}}</p>	
+	<div class= "expandable ">
+		<p class= "eventContent">{{ event.description }}</p>
+	</div>
+</div>
+{% endfor %}
+
+
+{% addtoblock "js" %}
+<script src="{{ MEDIA_URL }}js/jquery-expander.js"></script>
+<script>
+$(document).ready(function() {
+  $('div.expandable p').expander({
+    slicePoint:       47,  // choose this so that text nearly fills first line but does not overflow... would be nice if this could be calulated based on font side-size and <div> width
+    expandText:       '(more)', // default is 'read more'
+    collapseTimer:    10000, // re-collapses after 10 seconds; default is 0, which actually means no re-collapsing
+    userCollapseText: '(close)'  // default is 'read less'
+  });
+});
+</script>
+{% endaddtoblock %}

@@ -1,0 +1,52 @@
+{% load sekizai_tags %}
+
+<!-- This is the container for the carousel. -->
+<div id = "carousel1" style="width:600; height:300;background:#FFF;overflow:scroll;">            
+    <!-- All images with class of "cloudcarousel" will be turned into carousel items -->
+    <!-- You can place links around these images -->
+    {% for image in images %}
+    	<img class = "cloudcarousel" src="{{ image.src.url }}" alt="{{ image.alt }}" title="{{ image.title }}" />
+	{% endfor %}
+</div>
+
+<!-- Define left and right buttons. -->
+<!--<input id="left-but"  type="button" value="<" /> -->
+<!--<input id="right-but" type="button" value=">" /> -->
+
+<!-- Define elements to accept the alt and title text from the images. -->
+<div class= "carouselPanel">
+	<h2 id="title-text"></h2>
+	<p id="alt-text"></p>
+</div>
+
+
+<!-- Load the CloudCarousel JavaScript file -->
+{% addtoblock "js" %}<script type="text/JavaScript" src="{{STATIC_URL}}js/cloud-carousel.1.0.5.js"></script>{% endaddtoblock %}
+{% addtoblock "js" %}<script type="text/JavaScript" src="{{STATIC_URL}}js/jquery.mousewheel.js"></script>{% endaddtoblock %}
+
+{% addtoblock "js" %}
+<script>
+$(document).ready(function(){
+						   
+	// This initialises carousels on the container elements specified, in this case, carousel1.
+	$("#carousel1").CloudCarousel(		
+		{			
+			xPos: 200,
+			yPos: 32,
+			buttonLeft: $("#left-but"),
+			buttonRight: $("#right-but"),
+			altBox: $("#alt-text"),
+			titleBox: $("#title-text"),
+			bringToFront: true,
+			mouseWheel: true, //need jQuery mousewheel plugin for this to work
+			reflOpacity: 0.25,
+			reflHeight: 25,
+			reflGap: 2,
+			minScale: 0.4
+		}
+	);
+});
+ 
+</script>
+{% endaddtoblock %} 
+

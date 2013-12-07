@@ -1,0 +1,26 @@
+{% load menu_tags %}
+
+{# main navbar menu #}
+<div class="navbar">
+	<div class="navbar-inner">
+		<ul class="nav">
+
+			{% for child in children %}
+			
+			<li class="dropdown">
+			  <a class="dropdown-toggle" id="dLabel" role="button" data-toggle="dropdown" data-target="{{ child.attr.redirect_url|default:child.get_absolute_url }}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">
+					{{ child.get_menu_title }}
+			  		{% if not child.is_leaf_node %}
+			    		<b class="caret"></b>
+				  		<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+							{% show_menu_below_id child.title|slugify %}
+				  		</ul>	
+					{% endif %}
+				</a>
+			</li>
+			
+			{% endfor %}
+
+		</ul>
+	</div>
+</div>

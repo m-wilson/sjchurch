@@ -1,0 +1,25 @@
+{% load menu_tags %}
+
+{# accordion menu #}
+
+<div class="accordion" id="accordionMenu">
+  
+{% for child in children %}
+<!-- Single Accoridion entry, repeat for each menu item -->
+<div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordionMenu" href="#accordion_{{ child.get_menu_title|slugify }}">
+		{{ child.get_menu_title }}
+      </a>
+    </div>
+    <div id="accordion_{{ child.get_menu_title|slugify }}" class="accordion-body collapse {% if child.selected or child.ancestor %}in{% endif %}">
+      <div class="accordion-inner">
+        <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}"> {{ child.get_menu_title }} main</a>
+		{% show_menu_below_id child.title|slugify %}
+      </div>
+    </div>
+</div>
+<!-- end of repeat element -->
+{% endfor %}
+
+</div>

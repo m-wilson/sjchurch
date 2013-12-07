@@ -1,0 +1,30 @@
+{% load sekizai_tags %}
+
+<h2> Latest News </h2>
+
+{% for post in latest_news_posts %}
+<div class= "newsPanel">
+	<h2>{{ post.title }}</h2>
+	<div class= "expandable ">
+		<p class= "newsContent">{{ post.content }}</p>
+	</div>
+	<p class= "newsDate"> posted: {{post.date|date:"D d M Y"}}</p>
+</div>
+{% endfor %}
+
+{% addtoblock "js" %}
+<script src="{{ MEDIA_URL }}js/jquery-expander.js"></script>
+<script>
+$(document).ready(function() {
+  $('div.expandable p').expander({
+    slicePoint:       47,  // choose this so that text nearly fills first line but does not overflow... would be nice if this could be calulated based on font side-size and <div> width
+    expandText:       '(more)', // default is 'read more'
+    collapseTimer:    10000, // re-collapses after 10 seconds; default is 0, which actually means no re-collapsing
+    userCollapseText: '(close)'  // default is 'read less'
+  });
+});
+</script>
+{% endaddtoblock %}
+
+
+
