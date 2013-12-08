@@ -44,10 +44,27 @@ if 'HEROKU' in os.environ:
 else:
     DEBUG = True
     TEMPLATE_DEBUG = DEBUG
+#    STATIC_ROOT = 'staticfiles'
+#    STATIC_URL = '/static/'
+#    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+#    MEDIA_URL = '/media/'
+
+    #AWS_QUERYSTRING_AUTH = False
+    AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+    AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+    #AWS_PRELOAD_METADATA = True # necessary to fix manage.py collectstatic command to only upload changed files instead of all files
+
+    S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    #STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     STATIC_ROOT = 'staticfiles'
     STATIC_URL = '/static/'
-    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-    MEDIA_URL = '/media/'
+       
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+    ADMIN_MEDIA_PREFIX= 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
