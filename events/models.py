@@ -4,7 +4,7 @@ from dateutil import rrule
 from zinnia.models import Category
 from cms.models.pluginmodel import CMSPlugin
 from people.models import Individual
-
+from filer.fields.image import FilerImageField
 
 DAY_CHOICES = (
     (0, 'Monday'),
@@ -49,12 +49,13 @@ FREQUENCY_CHOICES = (
 class Event(models.Model):
     title = models.CharField(max_length=100, db_index=True)
     slug = models.SlugField(max_length=100, unique=True)
-    image = models.ImageField(
-           upload_to='events',
-           blank=True, null=True,
-           height_field='image_height', width_field='image_width')
-    image_height = models.PositiveIntegerField(editable=False, null=True)
-    image_width = models.PositiveIntegerField(editable=False, null=True)
+#    image = models.ImageField(
+#            upload_to='events',
+#            blank=True, null=True,
+#            height_field='image_height', width_field='image_width')
+#     image_height = models.PositiveIntegerField(editable=False, null=True)
+#     image_width = models.PositiveIntegerField(editable=False, null=True)
+    event_image = FilerImageField(null= True, blank= True, related_name="event_image")
     summary = models.CharField(
             max_length=100,
             help_text='A short sentence description of the event.')
