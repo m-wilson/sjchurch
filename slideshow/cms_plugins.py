@@ -3,7 +3,7 @@ from cms.plugin_pool import plugin_pool
 from slideshow.models import SlideshowPlugin
 from django.utils.translation import ugettext as _
 from django.conf import settings
-import os
+import os, string
 
 class SlideshowCMSPlugin(CMSPluginBase):
     model = SlideshowPlugin # Model where data about this plugin is saved
@@ -17,8 +17,12 @@ class SlideshowCMSPlugin(CMSPluginBase):
         imageCaption= {}
         for imageNo in range(no_of_images):
             #The following lines append the dictionaries
-            imageUrl[imageNo]= instance.model.images.all()[imageNo].image.url
-            imageCaption[imageNo]= instance.model.images.all()[imageNo].caption
+            url_incl_permissions= instance.model.images.all()[imageNo].image.url
+            raw_string= instance.model.images.all()[imageNo].caption
+            image_caption= raw_string
+            image_url= string.split(url_incl_permissions, '?')[0]
+            imageUrl[imageNo]= image_url
+            imageCaption[imageNo]= image_caption
         
         slideshow_name= instance.model.name
             

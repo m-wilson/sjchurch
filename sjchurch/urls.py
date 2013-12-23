@@ -21,6 +21,8 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
     url(r'^weblog/', include('zinnia.urls')),
     url(r'^comments/', include('django.contrib.comments.urls')), 
+    url(r'^events/', include('events.urls')),  
+    url(r'^people/', include('people.urls')),
 #    url(r'^', include('filer.server.urls')), 
     url(r'^', include('cms.urls')), # NB this is a 'catch all' pattern, if it is not placed last nothing that follows can ever be matched against!
 )

@@ -17,21 +17,12 @@
         <div class= "row" > 
             <div class= "span8 panel left"> <!-- left class is not specified in css but is included in case specific formatting is required later -->
 
-            <h2>{{ event.title }} </h2>
-            
-            <h4>{{ event.start }} </h4>
+            <h2>{{ individual }} </h2>
     
-            <p>{{ event.description }} </p>
-            <p>organised by:
-               {% for individual in event.organiser.all%}
-                    <a href= "{{ individual.get_absolute_url }}">{{ individual }}</a>
-               {% endfor %}  
-            </p>
         </div>
              
             <div class= "span4 panel right"> <!-- right class is not specified in css but is included in case specific formatting is required later -->
-                <img src="{{ event.event_image.url }}">
-       
+                <img src="{{ individual.image.url }}">             
             </div>
         </div>
     </div>

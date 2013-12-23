@@ -42,7 +42,7 @@ if 'HEROKU' in os.environ:
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 else:
-    DEBUG = False
+    DEBUG = True
     TEMPLATE_DEBUG = DEBUG
 #    STATIC_ROOT = 'staticfiles'
 #    STATIC_URL = '/static/'
@@ -68,7 +68,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'sjchurchwebDB',                      # Or path to database file if using sqlite3.
+            'NAME': 'sjchurchwebDB4',                      # Or path to database file if using sqlite3.
             # The following settings are not used with sqlite3:
             'USER': 'michael',
             'PASSWORD': 'kandj1001',
@@ -161,6 +161,7 @@ TEMPLATE_DIRS = (
 )
 
 FILER_IMAGE_USE_ICON= True
+TEXT_SAVE_IMAGE_FUNCTION='cmsplugin_filer_image.integrations.ckeditor.create_image_plugin'
 
 THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',
@@ -189,6 +190,7 @@ INSTALLED_APPS = (
     'cms',
     'cms.stacks',
     #'cms.plugins.picture',
+    'cms.plugins.link',
     'cmsplugin_filer_image',
     'cmsplugin_zinnia',
     'cms.plugins.googlemap',
@@ -205,6 +207,7 @@ INSTALLED_APPS = (
 
     'audio',
     'carousel',
+    'documents',
     'events',
     'news',
     'people',   

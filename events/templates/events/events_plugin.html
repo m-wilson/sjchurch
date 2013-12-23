@@ -4,8 +4,8 @@
 
 {% for date, event, weekday, endtime in upcoming_events %}
 <div class= "eventPanel">
-	<h2> {{ event.title }}</h2>
-	<p class= "eventDate">{{weekday}} {{ date }} - {{endtime}}</p>	
+	<h2> <a href="{{ event.get_absolute_url }}"> {{ event.title }} </a></h2>
+	<p class= "eventDate">{{ weekday }} {{ date }} - {{ endtime }}</p>	
 	<div class= "expandable ">
 		<p class= "eventContent">{{ event.description }}</p>
 	</div>

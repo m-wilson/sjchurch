@@ -1,0 +1,12 @@
+{% load sekizai_tags %}
+
+<h2> Documents </h2>
+{% if document_list %}
+    {% for instance in document_list %}
+        <p class= "span4" >{{instance.title}}</p>
+        <p><a style= "{align:right;}" href= "{{instance.document.url}}">view</a></p>  
+    {% endfor %}
+<div class="footnote">(right click on 'view' and select "Download Linked File" to download)</div>
+{% else %}
+    <p>Sorry, there are no documents at the moment.</p>
+{% endif %}

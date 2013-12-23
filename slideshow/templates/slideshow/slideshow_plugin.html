@@ -13,6 +13,7 @@
 	int xOffset= 0;
 	int speed= 4;
 	int startTime;
+	String caption_string;
 	
 	boolean bPauseMode;
 	int PAUSE_DURATION= {{ pause_duration }}; // i.e. 1000ms = 1sec
@@ -21,11 +22,11 @@
 	  size(width, height);
 	  noStroke();
 	  {% for image_no, image_url in image_urls.items %}
-		img[{{ image_no }}]= loadImage('{{ image_url }}');
+		img[{{ image_no }}]= loadImage("{{ image_url }}");
 	  {% endfor %}
 	  
 	  {% for image_no, image_caption in image_captions.items %}
-		caption[{{ image_no }}]= "{{ image_caption }}";
+		caption[{{ image_no }}]= "{{ image_caption|escapejs }}";
 	  {% endfor %}
 
 	  bPauseMode= false;
@@ -76,7 +77,7 @@
 	</script>
 {% endaddtoblock %}
 
-<div>
+<div style="padding: 8px">
 		<canvas id="processing_{{ slideshow_name }}">
 
 			<p>Your browser does not support the canvas tag.</p>

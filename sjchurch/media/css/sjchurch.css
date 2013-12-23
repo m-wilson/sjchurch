@@ -5272,6 +5272,9 @@ a.badge:focus {
 div.headerspace {
   height: 20px;
 }
+.navbar {
+  margin-bottom: 0px;
+}
 div.welcome {
   height: 20px;
   padding: 5px;
@@ -5348,7 +5351,7 @@ div.mission-statement {
   color: #999999;
 }
 div.background {
-  height: 360px;
+  height: 350px;
   background-repeat: no-repeat;
   background-position: right bottom;
 }
@@ -5364,4 +5367,9 @@ div.footer {
 div.audio-player {
   margin-left: -15px;
   font-size: 10pt;
+}
+div.footnote {
+  font-size: 10pt;
+  font-style: oblique;
+  color: #333333;
 }

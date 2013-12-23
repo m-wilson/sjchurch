@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Event.event_image'
-        db.add_column(u'events_event', 'event_image',
-                      self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='event_image', null=True, to=orm['filer.Image']),
+        # Adding field 'Individual.about'
+        db.add_column(u'people_individual', 'about',
+                      self.gf('django.db.models.fields.TextField')(null=True, blank=True),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'Event.event_image'
-        db.delete_column(u'events_event', 'event_image_id')
+        # Deleting field 'Individual.about'
+        db.delete_column(u'people_individual', 'about')
 
 
     models = {
@@ -77,54 +77,6 @@ class Migration(SchemaMigration):
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
-        u'events.event': {
-            'Meta': {'ordering': "('start',)", 'object_name': 'Event'},
-            'category': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['zinnia.Category']", 'through': u"orm['events.EventCategory']", 'symmetrical': 'False'}),
-            'description': ('django.db.models.fields.TextField', [], {}),
-            'end': ('django.db.models.fields.DateTimeField', [], {}),
-            'event_image': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'event_image'", 'null': 'True', 'to': "orm['filer.Image']"}),
-            'final_date': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'db_index': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.files.ImageField', [], {'max_length': '100', 'null': 'True', 'blank': 'True'}),
-            'image_height': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True'}),
-            'image_width': ('django.db.models.fields.PositiveIntegerField', [], {'null': 'True'}),
-            'organiser': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['people.Individual']", 'through': u"orm['events.EventOrganiser']", 'symmetrical': 'False'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '100'}),
-            'start': ('django.db.models.fields.DateTimeField', [], {}),
-            'summary': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '100', 'db_index': 'True'})
-        },
-        u'events.eventcategory': {
-            'Meta': {'object_name': 'EventCategory'},
-            'category': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['zinnia.Category']"}),
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['events.Event']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'events.eventorganiser': {
-            'Meta': {'object_name': 'EventOrganiser'},
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['events.Event']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'individual': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Individual']"})
-        },
-        u'events.recurringevent': {
-            'Meta': {'ordering': "('recurring_until',)", 'object_name': 'RecurringEvent'},
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['events.Event']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'meeting_frequency': ('django.db.models.fields.PositiveIntegerField', [], {}),
-            'recurring_until': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'})
-        },
-        u'events.recurringeventexclusion': {
-            'Meta': {'ordering': "('date',)", 'object_name': 'RecurringEventExclusion'},
-            'date': ('django.db.models.fields.DateTimeField', [], {'db_index': 'True'}),
-            'event': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['events.Event']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
-        },
-        u'events.upcomingevents': {
-            'Meta': {'object_name': 'UpcomingEvents', 'db_table': "u'cmsplugin_upcomingevents'", '_ormbases': ['cms.CMSPlugin']},
-            'categories': ('django.db.models.fields.related.ManyToManyField', [], {'to': "orm['zinnia.Category']", 'symmetrical': 'False'}),
-            u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'number_of_events': ('django.db.models.fields.PositiveIntegerField', [], {'default': '5'})
-        },
         'filer.file': {
             'Meta': {'object_name': 'File'},
             '_file_size': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
@@ -176,7 +128,8 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
         },
         u'people.individual': {
-            'Meta': {'object_name': 'Individual'},
+            'Meta': {'ordering': "('last_name',)", 'object_name': 'Individual'},
+            'about': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'birthday': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
             'email_address': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
             'first_name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
@@ -184,9 +137,15 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'image_person'", 'null': 'True', 'to': "orm['filer.Image']"}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
+            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '100'}),
             'telephone_number': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '32', 'null': 'True', 'blank': 'True'}),
             'twitter_handle': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
+        },
+        u'people.individuallink': {
+            'Meta': {'object_name': 'IndividualLink', 'db_table': "u'cmsplugin_individuallink'", '_ormbases': ['cms.CMSPlugin']},
+            u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
+            'individual': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Individual']"})
         },
         u'people.membership': {
             'Meta': {'object_name': 'Membership'},
@@ -194,19 +153,7 @@ class Migration(SchemaMigration):
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'individual': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Individual']"}),
             'role': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'})
-        },
-        'zinnia.category': {
-            'Meta': {'ordering': "['title']", 'object_name': 'Category'},
-            'description': ('django.db.models.fields.TextField', [], {'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'parent': ('mptt.fields.TreeForeignKey', [], {'blank': 'True', 'related_name': "'children'", 'null': 'True', 'to': "orm['zinnia.Category']"}),
-            'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
-            'slug': ('django.db.models.fields.SlugField', [], {'unique': 'True', 'max_length': '255'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
-            'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
         }
     }
 
-    complete_apps = ['events']
+    complete_apps = ['people']

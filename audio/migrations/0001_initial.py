@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'audio_fileraudiofile', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=250)),
-            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2013, 12, 7, 0, 0))),
+            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2013, 12, 16, 0, 0))),
             ('audiofile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['filer.File'], null=True, blank=True)),
         ))
         db.send_create_signal(u'audio', ['FilerAudioFile'])
@@ -21,7 +21,7 @@ class Migration(SchemaMigration):
         db.create_table(u'cmsplugin_fileraudioplugin', (
             (u'cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
             ('title', self.gf('django.db.models.fields.CharField')(max_length=250)),
-            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2013, 12, 7, 0, 0))),
+            ('date', self.gf('django.db.models.fields.DateField')(default=datetime.datetime(2013, 12, 16, 0, 0))),
             ('audiofile', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['filer.File'], null=True, blank=True)),
             ('autostart', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
@@ -55,7 +55,7 @@ class Migration(SchemaMigration):
         u'audio.fileraudiofile': {
             'Meta': {'object_name': 'FilerAudioFile'},
             'audiofile': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['filer.File']", 'null': 'True', 'blank': 'True'}),
-            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 12, 7, 0, 0)'}),
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 12, 16, 0, 0)'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '250'})
         },
@@ -64,7 +64,7 @@ class Migration(SchemaMigration):
             'audiofile': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['filer.File']", 'null': 'True', 'blank': 'True'}),
             'autostart': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 12, 7, 0, 0)'}),
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 12, 16, 0, 0)'}),
             'title': ('django.db.models.fields.CharField', [], {'max_length': '250'})
         },
         u'auth.group': {

@@ -8,15 +8,15 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        # Adding field 'Individual.image'
-        db.add_column(u'people_individual', 'image',
-                      self.gf('django.db.models.fields.related.ForeignKey')(blank=True, related_name='image_person', null=True, to=orm['filer.Image']),
+        # Adding field 'FilerDocumentFile.about'
+        db.add_column(u'documents_filerdocumentfile', 'about',
+                      self.gf('django.db.models.fields.TextField')(null=True, blank=True),
                       keep_default=False)
 
 
     def backwards(self, orm):
-        # Deleting field 'Individual.image'
-        db.delete_column(u'people_individual', 'image_id')
+        # Deleting field 'FilerDocumentFile.about'
+        db.delete_column(u'documents_filerdocumentfile', 'about')
 
 
     models = {
@@ -49,12 +49,48 @@ class Migration(SchemaMigration):
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         },
+        'cms.cmsplugin': {
+            'Meta': {'object_name': 'CMSPlugin'},
+            'changed_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'language': ('django.db.models.fields.CharField', [], {'max_length': '15', 'db_index': 'True'}),
+            'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
+            'lft': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
+            'parent': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cms.CMSPlugin']", 'null': 'True', 'blank': 'True'}),
+            'placeholder': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['cms.Placeholder']", 'null': 'True'}),
+            'plugin_type': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'}),
+            'position': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True', 'blank': 'True'}),
+            'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
+            'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'})
+        },
+        'cms.placeholder': {
+            'Meta': {'object_name': 'Placeholder'},
+            'default_width': ('django.db.models.fields.PositiveSmallIntegerField', [], {'null': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'slot': ('django.db.models.fields.CharField', [], {'max_length': '50', 'db_index': 'True'})
+        },
         u'contenttypes.contenttype': {
             'Meta': {'ordering': "('name',)", 'unique_together': "(('app_label', 'model'),)", 'object_name': 'ContentType', 'db_table': "'django_content_type'"},
             'app_label': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'model': ('django.db.models.fields.CharField', [], {'max_length': '100'}),
             'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
+        },
+        u'documents.documentlistplugin': {
+            'Meta': {'object_name': 'DocumentListPlugin', 'db_table': "u'cmsplugin_documentlistplugin'", '_ormbases': ['cms.CMSPlugin']},
+            'category': ('django.db.models.fields.CharField', [], {'default': "'TC'", 'max_length': '2'}),
+            u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
+            'number_of_documents': ('django.db.models.fields.IntegerField', [], {'default': '5'})
+        },
+        u'documents.filerdocumentfile': {
+            'Meta': {'object_name': 'FilerDocumentFile'},
+            'about': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
+            'category': ('django.db.models.fields.CharField', [], {'default': "'TC'", 'max_length': '2'}),
+            'date': ('django.db.models.fields.DateField', [], {'default': 'datetime.datetime(2013, 12, 17, 0, 0)'}),
+            'document': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['filer.File']", 'null': 'True'}),
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '250'})
         },
         'filer.file': {
             'Meta': {'object_name': 'File'},
@@ -86,46 +122,7 @@ class Migration(SchemaMigration):
             'rght': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'tree_id': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
             'uploaded_at': ('django.db.models.fields.DateTimeField', [], {'auto_now_add': 'True', 'blank': 'True'})
-        },
-        'filer.image': {
-            'Meta': {'object_name': 'Image', '_ormbases': ['filer.File']},
-            '_height': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            '_width': ('django.db.models.fields.IntegerField', [], {'null': 'True', 'blank': 'True'}),
-            'author': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'date_taken': ('django.db.models.fields.DateTimeField', [], {'null': 'True', 'blank': 'True'}),
-            'default_alt_text': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            'default_caption': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
-            u'file_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['filer.File']", 'unique': 'True', 'primary_key': 'True'}),
-            'must_always_publish_author_credit': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'must_always_publish_copyright': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'subject_location': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '64', 'null': 'True', 'blank': 'True'})
-        },
-        u'people.churchgroup': {
-            'Meta': {'object_name': 'ChurchGroup'},
-            'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '100'})
-        },
-        u'people.individual': {
-            'Meta': {'object_name': 'Individual'},
-            'birthday': ('django.db.models.fields.DateField', [], {'null': 'True', 'blank': 'True'}),
-            'email_address': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'null': 'True', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
-            'group_membership': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['people.ChurchGroup']", 'through': u"orm['people.Membership']", 'symmetrical': 'False'}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'image': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'image_person'", 'null': 'True', 'to': "orm['filer.Image']"}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '64'}),
-            'telephone_number': ('django.db.models.fields.CharField', [], {'max_length': '20', 'null': 'True', 'blank': 'True'}),
-            'title': ('django.db.models.fields.CharField', [], {'max_length': '32', 'null': 'True', 'blank': 'True'}),
-            'twitter_handle': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
-        },
-        u'people.membership': {
-            'Meta': {'object_name': 'Membership'},
-            'church_group': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.ChurchGroup']"}),
-            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'individual': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['people.Individual']"}),
-            'role': ('django.db.models.fields.CharField', [], {'max_length': '128', 'null': 'True', 'blank': 'True'})
         }
     }
 
-    complete_apps = ['people']
+    complete_apps = ['documents']

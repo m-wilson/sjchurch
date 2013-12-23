@@ -24,7 +24,7 @@ class SlideshowPlugin(CMSPlugin):
     name= u'Slideshow'
     width= models.IntegerField(default= 512)
     height= models.IntegerField(default= 128)
-    pause_duration= models.IntegerField(default= 5000)
+    pause_duration= models.IntegerField(default= 8000)
     
     
     def __unicode__(self):

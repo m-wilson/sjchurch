@@ -24,7 +24,7 @@ class IndividualAdmin(admin.ModelAdmin):
 #                ]
 
     list_display = ('last_name', 'first_name',)
-    list_filter = ('last_name', 'first_name')
+    list_filter = ('last_name', 'first_name',)
 
 admin.site.register(Individual, IndividualAdmin)
 admin.site.register(ChurchGroup, ChurchGroupAdmin)

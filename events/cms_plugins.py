@@ -13,7 +13,7 @@ class UpcomingEvents_Plugin(CMSPluginBase):
     
     def render(self, context, instance, placeholder):
         include_categories= instance.categories.all()
-        # NB sorted_event_list is a list of 3-tuples (instance date, event, WEEKDAY)  ***************
+        # NB sorted_event_list is a list of 3-tuples (instance date, event, WEEKDAY, endtime)  ***************
         upcomingEventsList= sorted_event_list(limit= instance.number_of_events, specified_categories=include_categories) # defaults to all events in the year starting now
             
         context.update({'upcoming_events': upcomingEventsList}) 
