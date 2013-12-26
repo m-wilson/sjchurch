@@ -118,4 +118,48 @@ div.footnote {
     color: @grayDark;
 }
 
+.breadcrumb {
+  padding: 0px 10px;
+  margin: 4px;
+  font-size: 10pt;
+  list-style: none;
+  background-color: transparent;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 4px;
+  > li {
+    display: inline-block;
+    *display: inline;
+    /* IE7 inline-block hack */
+  
+    *zoom: 1;
+  }
+    > .divider {
+      padding: 0 0;
+      color: #ccc;
+    }
+  > .active {
+    color: #999999;
+    }
+}
+hr {
+    margin: 0 0;
+}
+
+body{
+  color: @grayDark;
+}
+
+/* Fix for CMS Toolbar which raises 'site' text ( ie "St Judes Church") which is inelegant and
+ * casues problems if menu is navigated using mouse over only
+ */
+#cms_toolbar .cms_toolbar-item-navigation>li:first-child>a span {
+  font-weight: 600;
+}
+/* Fix for drop-down menus which disappear due to small gap between mouse over area and menu area
+ * 
+ */
+.dropdown-menu {
+    margin: -2px 0 0;
+}
 
