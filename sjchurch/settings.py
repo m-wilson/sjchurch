@@ -31,7 +31,7 @@ if 'HEROKU' in os.environ:
 #         STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 
     STATIC_ROOT = 'staticfiles'
-    STATIC_URL = '/static/'
+    STATIC_URL = '/staticfiles/'
        
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     DEFAULT_S3_PATH = "media"
@@ -46,7 +46,7 @@ if 'HEROKU' in os.environ:
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 else:
-    DEBUG = True
+    DEBUG = False
     TEMPLATE_DEBUG = DEBUG
     STATIC_ROOT = 'staticfiles'
     STATIC_URL = '/static/' #THIS WORKS WHEN DEBUG= TRUE BUT NOT WHEN FALSE!
