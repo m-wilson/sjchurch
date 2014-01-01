@@ -22,17 +22,21 @@ if 'HEROKU' in os.environ:
     HEROKU_DEBUG= os.environ.get('HEROKU_DEBUG', False)
     if(HEROKU_DEBUG=='True'):
         DEBUG= True
-        STATIC_ROOT = 'staticfiles'
-        STATIC_URL = '/static/'
-    else:
-        DEBUG= False
-        STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-        STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-        
-    TEMPLATE_DEBUG = DEBUG
+        TEMPLATE_DEBUG = DEBUG
+#         STATIC_ROOT = 'staticfiles'
+#         STATIC_URL = '/static/'
+#     else:
+#         DEBUG= False
+#         STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+#         STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+
+    STATIC_ROOT = 'staticfiles'
+    STATIC_URL = '/static/'
        
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    DEFAULT_S3_PATH = "media"
     MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+    MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
     ADMIN_MEDIA_PREFIX= 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     
     # Parse database configuration from $DATABASE_URL
@@ -44,8 +48,8 @@ if 'HEROKU' in os.environ:
 else:
     DEBUG = True
     TEMPLATE_DEBUG = DEBUG
-#    STATIC_ROOT = 'staticfiles'
-#    STATIC_URL = '/static/'
+    STATIC_ROOT = 'staticfiles'
+    STATIC_URL = '/static/' #THIS WORKS WHEN DEBUG= TRUE BUT NOT WHEN FALSE!
 #    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #    MEDIA_URL = '/media/'
 
@@ -58,17 +62,26 @@ else:
     S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     #STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATIC_ROOT = 'staticfiles'
-    STATIC_URL = '/static/'
+    #STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
        
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
+    DEFAULT_S3_PATH = "media"
+    #STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
+    #STATIC_S3_PATH = "static"
+    MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
+    
     MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
-    ADMIN_MEDIA_PREFIX= 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    
+    #STATIC_ROOT = "/%s/" % STATIC_S3_PATH
+    
+    #ADMIN_MEDIA_PREFIX= 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
     
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-            'NAME': 'sjchurchwebDB4',                      # Or path to database file if using sqlite3.
+            'NAME': 'sjchurch',                      # Or path to database file if using sqlite3.
             # The following settings are not used with sqlite3:
             'USER': 'michael',
             'PASSWORD': 'kandj1001',
@@ -97,6 +110,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'static'),
+    os.path.join(BASE_DIR, 'staticfiles'),
 )
 
 # List of finder classes that know how to find static files in
@@ -104,7 +118,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -216,6 +230,7 @@ INSTALLED_APPS = (
     'gunicorn',
     'storages',
     'boto',
+    's3_folder_storage',
     
 )
 
