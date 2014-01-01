@@ -1,5 +1,8 @@
 eclipse.preferences.version=1
 encoding//documents/migrations/0002_auto__add_field_filerdocumentfile_about.py=utf-8
+encoding//sjvenv/lib/python2.7/site-packages/cms/toolbar/toolbar.py=utf-8
 encoding//sjvenv/lib/python2.7/site-packages/cmsplugin_filer_image/integrations/ckeditor.py=utf-8
+encoding//sjvenv/lib/python2.7/site-packages/dj_database_url.py=utf-8
+encoding//sjvenv/lib/python2.7/site-packages/dj_static.py=utf-8
 encoding//sjvenv/lib/python2.7/site-packages/filer/models/filemodels.py=utf-8
 encoding//sjvenv/lib/python2.7/site-packages/filer/models/imagemodels.py=utf-8
