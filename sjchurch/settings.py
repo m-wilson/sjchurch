@@ -16,7 +16,7 @@ if 'HEROKU' in os.environ:
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    #AWS_PRELOAD_METADATA = True # necessary to fix manage.py collectstatic command to only upload changed files instead of all files
+    AWS_PRELOAD_METADATA = True # necessary to fix manage.py collectstatic command to only upload changed files instead of all files
     S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     
     HEROKU_DEBUG= os.environ.get('HEROKU_DEBUG', False)
@@ -46,7 +46,7 @@ if 'HEROKU' in os.environ:
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 else:
-    DEBUG = False
+    DEBUG = True
     TEMPLATE_DEBUG = DEBUG
     STATIC_ROOT = 'staticfiles'
     STATIC_URL = '/static/' #THIS WORKS WHEN DEBUG= TRUE BUT NOT WHEN FALSE!
@@ -57,7 +57,7 @@ else:
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
-    #AWS_PRELOAD_METADATA = True # necessary to fix manage.py collectstatic command to only upload changed files instead of all files
+    AWS_PRELOAD_METADATA = True # necessary to fix manage.py collectstatic command to only upload changed files instead of all files
 
     S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
@@ -110,7 +110,8 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'static'),
-#    os.path.join(PROJECT_ROOT, 'audio/static'),
+    os.path.join(PROJECT_ROOT, 'audio/static'),
+    os.path.join(PROJECT_ROOT, 'slideshow/static'),
 )
 
 # List of finder classes that know how to find static files in
