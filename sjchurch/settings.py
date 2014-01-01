@@ -46,7 +46,7 @@ if 'HEROKU' in os.environ:
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 else:
-    DEBUG = True
+    DEBUG = False
     TEMPLATE_DEBUG = DEBUG
     STATIC_ROOT = 'staticfiles'
     STATIC_URL = '/static/' #THIS WORKS WHEN DEBUG= TRUE BUT NOT WHEN FALSE!
@@ -110,7 +110,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(BASE_DIR, 'staticfiles'),
+    os.path.join(PROJECT_ROOT, 'audio/static'),
 )
 
 # List of finder classes that know how to find static files in

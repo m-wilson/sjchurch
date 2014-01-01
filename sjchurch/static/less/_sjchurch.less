@@ -1,0 +1,165 @@
+@import "bootstrap.less";
+
+@headerspace: 20px;
+
+div.headerspace {  
+    height: @headerspace;  
+}
+
+.navbar {
+  margin-bottom: 0px; //prevents uneeded 20px padding below navbar as default
+}
+
+div.welcome {
+    height: 20px;
+    padding: 5px;
+    font-family: @sansFontFamilyAlt;
+    font-size: 20pt;
+    font-weight: 100;
+    color:@grayDark;
+}
+
+div.panel {
+    font-size: 13pt;
+    font-weight: 100;
+    font-family: @sansFontFamilyAlt;
+    color: @grayDark;
+    
+    h2 {
+      font-size: 18pt;
+      font-weight: 100;
+      color:@red;
+    }
+    a {
+      color:@red;
+    }
+    a:hover {
+      color:@grayLight;
+    }
+}
+
+div.newsPanel, div.eventPanel {
+    display:inline-block;
+    width: 100%;
+    padding:4px;
+    margin-bottom:4px;
+    background:#eee;
+    font-size: 10pt;
+
+    .newsDate {
+      font-size: 9pt;
+      font-weight: 500;
+      line-height: 8px;
+      text-align: right;
+    }
+    
+    .eventDate {
+      font-size: 12pt;
+      font-weight: 500;
+      line-height: 12px;
+    }    
+  
+    
+    .newsContent, .eventContent {
+      font-style: oblique;
+      line-height: 14px;
+    }
+    
+    h2 {
+      font-size: 14pt;
+      line-height: 10px;
+    }
+}
+
+div.carouselPanel {
+    h2 {
+      text-align: center;
+    }
+    p {
+    height:120px;
+    overflow:auto;
+    }
+}
+
+div.mission-statement {
+    height: 25px;
+    padding: 5px;
+    font-family: @sansFontFamilyAlt;
+    font-size: 20pt;
+    font-style: oblique;
+    font-weight: 100;
+    color:@grayLight;
+}
+
+div.background {
+    height: 350px; 
+    background-repeat:no-repeat;
+    background-position:right bottom;
+}
+
+div.footer {
+    display:inline-block;
+    padding: 5px;
+    background:@grayLighter;
+    margin:20px;
+    text-align: center;
+    font-style: oblique;
+    color: @grayLight;
+}
+
+div.audio-player {
+    margin-left: -15px;
+    font-size: 10pt;
+}
+
+div.footnote {
+    font-size: 10pt;
+    font-style: oblique;
+    color: @grayDark;
+}
+
+.breadcrumb {
+  padding: 0px 10px;
+  margin: 4px;
+  font-size: 10pt;
+  list-style: none;
+  background-color: transparent;
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 4px;
+  > li {
+    display: inline-block;
+    *display: inline;
+    /* IE7 inline-block hack */
+  
+    *zoom: 1;
+  }
+    > .divider {
+      padding: 0 0;
+      color: #ccc;
+    }
+  > .active {
+    color: #999999;
+    }
+}
+hr {
+    margin: 0 0;
+}
+
+body{
+  color: @grayDark;
+}
+
+/* Fix for CMS Toolbar which raises 'site' text ( ie "St Judes Church") which is inelegant and
+ * casues problems if menu is navigated using mouse over only
+ */
+#cms_toolbar .cms_toolbar-item-navigation>li:first-child>a span {
+  font-weight: 600;
+}
+/* Fix for drop-down menus which disappear due to small gap between mouse over area and menu area
+ * 
+ */
+.dropdown-menu {
+    margin: -2px 0 0;
+}
+
