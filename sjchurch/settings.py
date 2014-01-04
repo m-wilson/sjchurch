@@ -12,32 +12,23 @@ MANAGERS = ADMINS
 
 if 'HEROKU' in os.environ:
     
-    #AWS_QUERYSTRING_AUTH = False
+    AWS_QUERYSTRING_AUTH = False
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     AWS_PRELOAD_METADATA = True # necessary to fix manage.py collectstatic command to only upload changed files instead of all files
-    S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     
-    HEROKU_DEBUG= os.environ.get('HEROKU_DEBUG', False)
-    if(HEROKU_DEBUG=='True'):
-        DEBUG= True
-        TEMPLATE_DEBUG = DEBUG
-#         STATIC_ROOT = 'staticfiles'
-#         STATIC_URL = '/static/'
-#     else:
-#         DEBUG= False
-#         STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-#         STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    STATICFILES_STORAGE= 'django.contrib.staticfiles.storage.StaticFilesStorage' #this is the default
-    STATIC_ROOT = 'static'
-    STATIC_URL = '/static/'
-       
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
     DEFAULT_S3_PATH = "media"
-    MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+    STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
+    STATIC_S3_PATH = "static"
+
     MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
-    ADMIN_MEDIA_PREFIX= 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
+    MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_ROOT = "/%s/" % STATIC_S3_PATH
+    
+    ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
     
     # Parse database configuration from $DATABASE_URL
     import dj_database_url
@@ -48,34 +39,23 @@ if 'HEROKU' in os.environ:
 else:
     DEBUG = False
     TEMPLATE_DEBUG = DEBUG
-    STATIC_ROOT = 'static'
-    STATIC_URL = '/static/' #THIS WORKS WHEN DEBUG= TRUE BUT NOT WHEN FALSE!
-#    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-#    MEDIA_URL = '/media/'
 
-    #AWS_QUERYSTRING_AUTH = False
+    AWS_QUERYSTRING_AUTH = False
     AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
     AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
     AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
     AWS_PRELOAD_METADATA = True # necessary to fix manage.py collectstatic command to only upload changed files instead of all files
-
-    S3_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    #STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-    #STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-    #STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
-       
-    #DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+    
     DEFAULT_FILE_STORAGE = 's3_folder_storage.s3.DefaultStorage'
     DEFAULT_S3_PATH = "media"
-    #STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
-    #STATIC_S3_PATH = "static"
+    STATICFILES_STORAGE = 's3_folder_storage.s3.StaticStorage'
+    STATIC_S3_PATH = "static"
+
     MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
-    
     MEDIA_URL = 'https://%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = 'https://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
+    STATIC_ROOT = "/%s/" % STATIC_S3_PATH
     
-    #STATIC_ROOT = "/%s/" % STATIC_S3_PATH
-    
-    #ADMIN_MEDIA_PREFIX= 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
     
     DATABASES = {
