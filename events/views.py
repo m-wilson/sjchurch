@@ -11,7 +11,7 @@ import datetime
 from dateutil.relativedelta import relativedelta
 from dateutil import rrule
 import vobject
-from events.utils import sorted_event_list
+from .utils import sorted_event_list
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 

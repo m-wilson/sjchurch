@@ -29,9 +29,9 @@ if 'HEROKU' in os.environ:
 #         DEBUG= False
 #         STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 #         STATIC_URL = 'https://%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
-
-    STATIC_ROOT = 'staticfiles'
-    STATIC_URL = '/staticfiles/'
+    STATICFILES_STORAGE= 'django.contrib.staticfiles.storage.StaticFilesStorage' #this is the default
+    STATIC_ROOT = 'static'
+    STATIC_URL = '/static/'
        
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
     DEFAULT_S3_PATH = "media"
@@ -48,7 +48,7 @@ if 'HEROKU' in os.environ:
 else:
     DEBUG = False
     TEMPLATE_DEBUG = DEBUG
-    STATIC_ROOT = 'staticfiles'
+    STATIC_ROOT = 'static'
     STATIC_URL = '/static/' #THIS WORKS WHEN DEBUG= TRUE BUT NOT WHEN FALSE!
 #    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 #    MEDIA_URL = '/media/'
@@ -110,8 +110,9 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     os.path.join(BASE_DIR, 'static'),
-    os.path.join(PROJECT_ROOT, 'audio/static'),
-    os.path.join(PROJECT_ROOT, 'slideshow/static'),
+#     os.path.join(PROJECT_ROOT, 'audio/static'),
+#     os.path.join(PROJECT_ROOT, 'carousel/static'),
+#     os.path.join(PROJECT_ROOT, 'slideshow/static'),
 )
 
 # List of finder classes that know how to find static files in
@@ -119,7 +120,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.

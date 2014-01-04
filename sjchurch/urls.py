@@ -7,9 +7,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-        {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-    url(r'', include('django.contrib.staticfiles.urls')),
+#     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+#         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+#     url(r'', include('django.contrib.staticfiles.urls')),
     # Examples:
     # url(r'^$', 'sjchurch.views.home', name='home'),
     # url(r'^sjchurch/', include('sjchurch.foo.urls')),
@@ -23,12 +23,12 @@ urlpatterns = patterns('',
     url(r'^comments/', include('django.contrib.comments.urls')), 
     url(r'^events/', include('events.urls')),  
     url(r'^people/', include('people.urls')),
-#    url(r'^', include('filer.server.urls')), 
+    url(r'^', include('filer.server.urls')), 
     url(r'^', include('cms.urls')), # NB this is a 'catch all' pattern, if it is not placed last nothing that follows can ever be matched against!
 )
-# if settings.DEBUG:
-#     urlpatterns = patterns('',
-#     url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
-#         {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
-#     url(r'', include('django.contrib.staticfiles.urls')),
-# ) + urlpatterns
+if settings.DEBUG:
+    urlpatterns = patterns('',
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+        {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+    url(r'', include('django.contrib.staticfiles.urls')),
+) + urlpatterns

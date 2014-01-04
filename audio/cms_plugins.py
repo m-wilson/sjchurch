@@ -1,8 +1,8 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from audio.models import FilerAudioPlugin as FilerAudioPluginModel
-from audio.models import AudioListPlugin as AudioListPluginModel
-from audio.models import FilerAudioFile
+from .models import FilerAudioPlugin as FilerAudioPluginModel
+from .models import AudioListPlugin as AudioListPluginModel
+from .models import FilerAudioFile
 
 from django.utils.translation import ugettext as _
 

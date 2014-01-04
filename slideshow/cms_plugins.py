@@ -1,6 +1,6 @@
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from slideshow.models import SlideshowPlugin
+from .models import SlideshowPlugin
 from django.utils.translation import ugettext as _
 from django.conf import settings
 import os, string

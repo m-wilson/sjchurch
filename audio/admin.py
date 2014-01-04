@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from audio.models import FilerAudioFile
+from .models import FilerAudioFile
 
 class FilerAudioAdmin(admin.ModelAdmin):
     list_filter = 'date',

@@ -3,8 +3,8 @@ from cms.plugin_pool import plugin_pool
 from zinnia.models import Category
 from django.utils.translation import ugettext as _
 
-from models import Event, UpcomingEvents
-from utils import sorted_event_list
+from .models import Event, UpcomingEvents
+from .utils import sorted_event_list
 
 class UpcomingEvents_Plugin(CMSPluginBase):
     model = UpcomingEvents
