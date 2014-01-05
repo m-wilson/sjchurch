@@ -4,3 +4,4 @@ sjvenv
 *.pyc
 *.pyo
 openshift
+.openshift
