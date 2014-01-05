@@ -10,7 +10,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-if 'HEROKU' in os.environ:
+if 'OPENSHIFT_GEAR_NAME' in os.environ:
     DEBUG=os.environ['DEBUG']
     TEMPLATE_DEBUG = DEBUG
     
@@ -33,8 +33,18 @@ if 'HEROKU' in os.environ:
     ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
     
     # Parse database configuration from $DATABASE_URL
-    import dj_database_url
-    DATABASES = { 'default': dj_database_url.config()}
+#     import dj_database_url
+#     DATABASES = { 'default': dj_database_url.config()}
+    DATABASES = {
+        'default': {
+            'ENGINE'    : 'django.db.backends.postgresql_psycopg2',
+            'NAME'      : os.environ['OPENSHIFT_APP_NAME'],
+            'USER'      : os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME'],
+            'PASSWORD'  : os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD'],
+            'HOST'      : os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
+            'PORT'      : os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'],
+            }
+    }
     
     # Honor the 'X-Forwarded-Proto' header for request.is_secure()
     # SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
