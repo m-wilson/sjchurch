@@ -1,0 +1,27 @@
+#!/bin/bash
+# This deploy hook gets executed after dependencies are resolved and the
+# build hook has been run but before the application has been started back
+# up again.  This script gets executed directly, so it could be python, php,
+# ruby, etc.
+
+export AWS_STORAGE_BUCKET_NAME=sjchurch
+export AWS_ACCESS_KEY_ID=AKIAIHC2AZFRJ73QA7UA
+export AWS_SECRET_ACCESS_KEY=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
+
+export VENV_APP_DIR= "app-root/data/virtualenvs"
+export DJANGO_SETTINGS_MODULE="sjchurch.settings"
+
+# boot django database setup and static file collection
+
+#msg "Executing 'python ${OPENSHIFT_REPO_DIR}manage.py syncdb --noinput'"
+#python ${OPENSHIFT_REPO_DIR}manage.py syncdb --noinput
+
+#msg "Executing 'python ${OPENSHIFT_REPO_DIR}manage.py migrate'"
+#python ${OPENSHIFT_REPO_DIR}manage.py migrate
+
+# prepare Django asset support
+#mkdir -p ${OPENSHIFT_DATA_DIR}site_media/
+#mkdir -p ${OPENSHIFT_DATA_DIR}site_static/
+
+#echo "Executing 'python ${OPENSHIFT_REPO_DIR}manage.py collectstatic --clear --noinput'"
+#python ${OPENSHIFT_REPO_DIR}manage.py collectstatic --clear --noinput
